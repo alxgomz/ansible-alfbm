@@ -1,0 +1,12 @@
+[Unit]
+Description=Selenium Hub
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=selenium
+
+ExecStart=/usr/bin/java -jar /usr/local/share/selenium/selenium-server-standalone-{{ selenium_version }}.jar -role hub -newSessionWaitTimeout 5000 -timeout 300 -Xmx1G -port {{ selenium_hub_port }}
+
+[Install]
+WantedBy=multi-user.target

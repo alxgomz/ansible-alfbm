@@ -1,0 +1,12 @@
+[bm-server]
+alfbmsrv
+
+[load-driver]
+alfbmsrv
+
+[selenium-hub]
+alfbmsrv
+
+[mongodb]
+alfbmsrv
+

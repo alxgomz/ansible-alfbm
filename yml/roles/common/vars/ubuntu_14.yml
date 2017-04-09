@@ -1,0 +1,5 @@
+repo_list:
+  - ppa:openjdk-r/ppa
+
+warn_old: True
+

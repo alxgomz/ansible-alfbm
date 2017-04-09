@@ -1,0 +1,42 @@
+---
+- name: Configure Tomcat server
+  xml:
+    file: "{{ tomcat_cfg_server }}"
+    xpath: /Server/Service/Connector/@port
+
+- name: Set Tomcat port
+  replace:
+    dest: "{{ tomcat_cfg_server }}"
+    regexp: ' port="" '
+    replace: ' port="{{ tomcat_port }}" '
+  notify: Restart Tomcat
+
+- name: Set JAVA_HOME
+  lineinfile:
+    dest: "{{ tomcat_cfg_daemon }}"
+    line: JAVA_HOME="{{ java_home }}"
+    regexp: '^\s*JAVA_HOME\s*=.*$'
+  notify: Restart Tomcat
+
+- name: Set JAVA_OPTS
+  lineinfile:
+    dest: "{{ tomcat_cfg_daemon }}"
+    line: JAVA_OPTS="$JAVA_OPTS -server -XX:MaxPermSize=512 -Xmx3G -Dmongo.config.host="{{ groups['mongodb'][0] }}""
+  notify: Restart Tomcat
+
+- name: Remove all Tomcat webapps
+  file: name="{{ catalina_home }}/webapps/{{ item }}" state=absent
+  with_items:
+    - alfresco-benchmark-server
+    - alfresco-benchmark-server.war
+  when: tomcat_clean == True
+
+- name: Get Alfresco benchmark server artifact
+  get_url:
+    url: "{{ artifact_repo }}/{{ bm_server_path }}"
+    dest: "{{ catalina_home }}/webapps/alfresco-benchmark-server.war"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: 0644
+  notify: Restart Tomcat
+

@@ -1,0 +1,33 @@
+---
+- name: Remove all Tomcat webapps
+  file: name="{{ catalina_home }}/webapps/{{ item }}" state=absent
+  with_items:
+    - alfresco-benchmark-tests-signup
+    - alfresco-benchmark-tests-signup.war
+    - alfresco-benchmark-tests-cmis
+    - alfresco-benchmark-tests-cmis.war
+    - alfresco-benchmark-tests-dataload
+    - alfresco-benchmark-tests-dataload.war
+    - alfresco-benchmark-tests-share
+    - alfresco-benchmark-tests-share.war
+    - alfresco-benchmark-tests-workflow
+    - alfresco-benchmark-tests-workflow.war
+    - alfresco-benchmark-tests-desktopsync
+    - alfresco-benchmark-tests-desktopsync.war
+  when: tomcat_clean == True
+
+- name: Get Alfresco benchmark tests artifacts
+  get_url:
+    url: "{{ artifact_repo }}/{{ item.artifact }}"
+    dest: "{{ catalina_home }}/webapps/{{ item.warfile }}.war"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: 0644
+  with_items:
+    - { artifact: "{{ tests_signup_path }}", warfile: 'alfresco-benchmark-tests-signup' }
+    - { artifact: "{{ tests_cmis_path }}", warfile: 'alfresco-benchmark-tests-cmis' }
+    - { artifact: "{{ tests_dataload_path }}", warfile: 'alfresco-benchmark-tests-dataload' }
+    - { artifact: "{{ tests_share_path }}", warfile: 'alfresco-benchmark-tests-share' }
+    - { artifact: "{{ tests_workflow_path }}", warfile: 'alfresco-benchmark-tests-workflow' }
+    - { artifact: "{{ tests_desktopsync_path }}", warfile: 'alfresco-benchmark-tests-desktopsync' }
+

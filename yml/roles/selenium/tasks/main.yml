@@ -1,0 +1,43 @@
+---
+- name: Create selenium user
+  user:
+    name: selenium
+    system: yes
+    shell: /bin/false
+    home: /usr/local/share/selenium
+    comment: "Selenium Browser autamation user"
+
+- name: Get Selenium server
+  get_url:
+    url: "{{ selenium_url }}"
+    dest: "/usr/local/share/selenium/selenium-server-standalone-{{ selenium_version }}.jar"
+    mode: 0644
+
+- name: Install Pseudo X server
+  apt:
+    name: xvfb
+  when: ansible_pkg_mgr == "apt"
+
+- name: Add Selenium Hub init script
+  template:
+    src: sysvinit-hub
+    dest: /etc/init.d/selenium-hub
+    mode: 0755
+  when: inventory_hostname in groups['selenium-hub']
+
+- name: Add Selenium Node init script
+  template:
+    src: sysvinit-node
+    dest: /etc/init.d/selenium-node
+    mode: 0755
+  when: inventory_hostname in groups['load-driver']
+
+- name: Enable Selenium service
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - selenium-hub
+    - selenium-node
+

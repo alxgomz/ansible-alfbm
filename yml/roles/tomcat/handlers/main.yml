@@ -1,0 +1,6 @@
+---
+- name: Restart Tomcat
+  service:
+    name: "{{ tomcat_pkg[0] }}"
+    state: restarted
+

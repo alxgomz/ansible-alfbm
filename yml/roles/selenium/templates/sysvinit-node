@@ -1,0 +1,57 @@
+#!/bin/bash
+
+DESC="Selenium server"
+RUN_AS=selenium
+JAVA_BIN=/usr/bin/java
+
+SELENIUM_DIR=/usr/local/share/selenium
+PID_FILE="$SELENIUM_DIR/selenium-node.pid"
+JAR_FILE="$SELENIUM_DIR/selenium-server-standalone-{{ selenium_version }}.jar"
+LOG_FILE="$SELENIUM_DIR/selenium-node.log"
+SELENIUM_HUB={{ groups['selenium-hub'][0] }}
+SELENIUM_PORT={{ selenium_hub_portnumber }}
+XVFB_RUN=/usr/bin/xvfb-run
+
+MAX_MEMORY="-Xmx1G"
+STACK_SIZE="-Xss1024k"
+
+DAEMON_OPTS="$MAX_MEMORY -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -maxSession 500 -browser browserName=firefox,platform=ANY,maxInstances=32 -port 5559 -avoidProxy"
+
+NAME=selenium
+
+# TODO: Put together /etc/init.d/xvfb
+
+case "$1" in
+    start)
+        echo -n "Starting $DESC: "
+        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE --make-pidfile --exec $XVFB_RUN -- -a $JAVA_BIN $DAEMON_OPTS
+        echo "$NAME."
+        ;;
+
+    stop)
+        echo -n "Stopping $DESC: "
+	for proc in $(ps --ppid `cat $PID_FILE` -o pid --no-headers); do
+		kill $proc
+	done
+        start-stop-daemon --stop --pidfile $PID_FILE
+        echo "$NAME."
+        ;;
+
+    restart|force-reload)
+        echo -n "Restarting $DESC: "
+        start-stop-daemon --stop --pidfile $PID_FILE
+	sleep 1
+	start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE  --make-pidfile --exec $XVFB_RUN -- -a $JAVA_BIN $DAEMON_OPTS
+	echo "$NAME."
+	;;
+
+    status)
+      start-stop-daemon -T --pidfile $PID_FILE
+      ;;
+
+    *)
+      	N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac

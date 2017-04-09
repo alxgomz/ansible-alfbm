@@ -1,0 +1,17 @@
+---
+- name: Add MongoDB repo key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 0C49F3730359A14518585931BC711F9BA15703C6
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Set up MongoDB reposirtory
+  apt_repository:
+    repo: "{{ mongo_repo_url }}"
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install MongoDB
+  apt:
+    name: mongodb-org
+  when: ansible_pkg_mgr == 'apt'
+

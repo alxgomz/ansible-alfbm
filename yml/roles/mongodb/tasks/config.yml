@@ -1,0 +1,8 @@
+---
+- name: bind MongoDB to the external network
+  lineinfile:
+    line: "  bindIp: 0.0.0.0"
+    regexp: '  bindIp: .*'
+    dest: /etc/mongod.conf
+  notify: Restart Mongo
+

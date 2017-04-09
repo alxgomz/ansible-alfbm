@@ -1,0 +1,14 @@
+---
+- name: Install common packages (RedHat like systems)
+  yum: pkg={{ item }}
+  when: ansible_pkg_mgr == "yum"
+  with_items: "{{ servlet_pkg }}"
+
+- name: Install common packages (Debian like systems)
+  apt: name={{ item }}
+  when: ansible_pkg_mgr == "apt"
+  with_items: "{{ servlet_pkg }}"
+
+- name: Stop Tomcat
+  service: name="{{ tomcat_pkg[0] }}" state=stopped
+

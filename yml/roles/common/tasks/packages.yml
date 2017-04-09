@@ -1,0 +1,16 @@
+---
+- name: Setup required repositories (Debian-like systems)
+  apt_repository: repo="{{ item }}" filename=alfbm
+  when: ansible_pkg_mgr == "apt" and repo_list is defined
+  with_items: "{{ repo_list }}"
+
+- name: Install common packages (RedHat like systems)
+  yum: pkg={{ item }}
+  when: ansible_pkg_mgr == "yum"
+  with_items: "{{ common_pkg }}"
+
+- name: Install common packages (Debian like systems)
+  apt: name={{ item }}
+  when: ansible_pkg_mgr == "apt"
+  with_items: "{{ common_pkg }}"
+

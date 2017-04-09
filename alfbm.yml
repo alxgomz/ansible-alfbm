@@ -1,0 +1,7 @@
+---
+- include: yml/all.yml
+- include: yml/mongodb.yml
+- include: yml/bm-server.yml
+- include: yml/load-driver.yml
+- include: yml/selenium-grid.yml
+

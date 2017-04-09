@@ -1,0 +1,5 @@
+repo_list:
+  - http://ftp.fr.debian.org/debian jessie-backport main
+
+warn_old: True
+

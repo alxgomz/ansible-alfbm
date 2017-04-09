@@ -1,0 +1,50 @@
+#!/bin/bash
+
+DESC="Selenium server"
+RUN_AS=selenium
+JAVA_BIN=/usr/bin/java
+
+SELENIUM_DIR=/usr/local/share/selenium
+PID_FILE="$SELENIUM_DIR/selenium-hub.pid"
+JAR_FILE="$SELENIUM_DIR/selenium-server-standalone-{{ selenium_version }}.jar"
+LOG_FILE="$SELENIUM_DIR/selenium-hub.log"
+SELENIUM_PORT={{ selenium_hub_portnumber }}
+
+MAX_MEMORY="-Xmx1G"
+STACK_SIZE="-Xss1024k"
+
+DAEMON_OPTS="$MAX_MEMORY -jar $JAR_FILE -log $LOG_FILE -role hub -newSessionWaitTimeout 5000 -timeout 300 -port $SELENIUM_PORT"
+
+NAME=selenium
+
+case "$1" in
+    start)
+        echo -n "Starting $DESC hub: "
+        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE --make-pidfile --exec $JAVA_BIN -- $DAEMON_OPTS
+        echo "$NAME."
+        ;;
+
+    stop)
+        echo -n "Stopping $DESC: "
+        start-stop-daemon --stop --pidfile $PID_FILE
+        echo "$NAME."
+        ;;
+
+    restart|force-reload)
+        echo -n "Restarting $DESC: "
+        start-stop-daemon --stop --pidfile $PID_FILE
+	sleep 1
+	start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE  --make-pidfile --exec $JAVA_BIN -- $DAEMON_OPTS
+	echo "$NAME."
+	;;
+
+    status)
+      start-stop-daemon -T --pidfile $PID_FILE
+      ;;
+
+    *)
+      	N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac

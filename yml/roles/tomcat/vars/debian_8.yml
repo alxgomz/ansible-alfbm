@@ -1,0 +1,15 @@
+java_pkg:
+  - "openjdk-{{ java_version }}-jre-headless"
+  - "openjdk-{{ java_version }}-jdk-headless"
+
+tomcat_pkg:
+  - "tomcat{{ tomcat_version }}"
+
+servlet_pkg_list: "{{ java_pkg }} + {{ tomcat_pkg }}"
+
+tomcat_cfg_server: "/etc/tomcat{{ tomcat_version }}/server.xml"
+tomcat_cfg_daemon: "/etc/default/tomcat{{ tomcat_version }}"
+tomcat_user: "tomcat{{ tomcat_version }}"
+tomcat_group: "tomcat{{ tomcat_version }}"
+catalina_home: "/var/lib/tomcat{{ tomcat_version }}"
+
