@@ -40,4 +40,4 @@
   with_items:
     - selenium-hub
     - selenium-node
-
+  when: ( inventory_hostname in groups['selenium-hub'] and item  == 'selenium-hub' ) or ( inventory_hostname in groups['load-driver'] and item == 'selenium-node' )
