@@ -1,0 +1,9 @@
+---
+- name: Software used with Selenium
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - xvfb
+    - "{{ firefox_pkg }}"
+  when: ansible_pkg_mgr == "apt"
+

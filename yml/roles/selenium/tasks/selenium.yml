@@ -13,11 +13,6 @@
     dest: "/usr/local/share/selenium/selenium-server-standalone-{{ selenium_version }}.jar"
     mode: 0644
 
-- name: Install Pseudo X server
-  apt:
-    name: xvfb
-  when: ansible_pkg_mgr == "apt"
-
 - name: Add Selenium Hub init script
   template:
     src: sysvinit-hub
@@ -41,3 +36,4 @@
     - selenium-hub
     - selenium-node
   when: ( inventory_hostname in groups['selenium-hub'] and item  == 'selenium-hub' ) or ( inventory_hostname in groups['load-driver'] and item == 'selenium-node' )
+
