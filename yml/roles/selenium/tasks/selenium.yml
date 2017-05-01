@@ -19,6 +19,7 @@
     dest: /etc/init.d/selenium-hub
     mode: 0755
   when: inventory_hostname in groups['selenium-hub']
+  notify: Restart Selenium hub
 
 - name: Add Selenium Node init script
   template:
@@ -26,11 +27,11 @@
     dest: /etc/init.d/selenium-node
     mode: 0755
   when: inventory_hostname in groups['load-driver']
+  notify: Restart Selenium node
 
 - name: Enable Selenium service
   service:
     name: "{{ item }}"
-    state: started
     enabled: yes
   with_items:
     - selenium-hub

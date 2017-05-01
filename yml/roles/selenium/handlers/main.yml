@@ -1,0 +1,13 @@
+---
+- name: Restart Selenium Hub
+  service:
+    name: selenium-hub
+    state: started
+    enabled: yes
+
+- name: Restart Selenium node
+  service:
+    name: selenium-node
+    state: started
+    enabled: yes
+
