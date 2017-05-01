@@ -40,4 +40,5 @@ $ ansible-playbook -i inventory alfbm.yml -b -K
  * RedHat like environments
  * Selenium install tasks for systemd enabled OS
  * Allow non-key based play of the book
+ * Attach real VNC server to be able to see what selenium actually doing headless
 
