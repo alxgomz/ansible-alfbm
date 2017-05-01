@@ -44,5 +44,7 @@ selenium_url: "http://selenium-release.storage.googleapis.com/{{ selenium_releas
 
 selenium_hub_portnumber: "{{ selenium_hub_port | default(4444) }}"
 
+xserver_res: 1280x1024x24
+
 mongodb_version: "{{ mongodb_ver | default('3.4') }}"
 

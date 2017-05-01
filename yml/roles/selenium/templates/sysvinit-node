@@ -15,16 +15,15 @@ XVFB_RUN=/usr/bin/xvfb-run
 MAX_MEMORY="-Xmx1G"
 STACK_SIZE="-Xss1024k"
 
-DAEMON_OPTS="$MAX_MEMORY -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -maxSession 500 -browser browserName=firefox,platform=ANY,maxInstances=32 -port 5559 -avoidProxy"
+DAEMON_OPTS="$MAX_MEMORY -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -maxSession 500 -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy"
+XSERVER_ARGS="{{ xserver_res }}"
 
 NAME=selenium
-
-# TODO: Put together /etc/init.d/xvfb
 
 case "$1" in
     start)
         echo -n "Starting $DESC: "
-        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE --make-pidfile --exec $XVFB_RUN -- -a $JAVA_BIN $DAEMON_OPTS
+        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE --make-pidfile --exec $XVFB_RUN -- -s "$XSERVER_ARGS" -a $JAVA_BIN $DAEMON_OPTS
         echo "$NAME."
         ;;
 
