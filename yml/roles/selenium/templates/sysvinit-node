@@ -13,12 +13,11 @@ SELENIUM_PORT={{ selenium_hub_portnumber }}
 XVFB_RUN=/usr/bin/xvfb-run
 
 MAX_MEMORY="-Xmx1G"
-STACK_SIZE="-Xss1024k"
 
 DAEMON_OPTS="$MAX_MEMORY -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -maxSession 500 -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy"
-XSERVER_ARGS="{{ xserver_res }}"
+XSERVER_ARGS="-screen 0 {{ xserver_res }}"
 
-NAME=selenium
+NAME=selenium-node
 
 case "$1" in
     start)
