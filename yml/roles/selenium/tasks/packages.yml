@@ -12,7 +12,9 @@
     dest: /opt/
     remote_src: yes
     creates: /opt/firefox/firefox
+  when: inventory_hostname in groups['load-driver']
 
 - name: Add Firefox binary in PATH
   file: state=link dest=/usr/bin/firefox src=/opt/firefox/firefox
+  when: inventory_hostname in groups['load-driver']
 
