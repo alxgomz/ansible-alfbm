@@ -33,12 +33,13 @@ If you're loging in as a normal user and need to "sudo", use the command bellow:
 ```
 $ ansible-playbook -i inventory alfbm.yml -b -K
 ```
+If some options need to be changed (e.g. java or tomcat version, etc...), edit the group_vars/all file or the host_vars/<HOSTNAME> if the variable is host specific.
+
 ## TODO
 
  * Make it possible to download software from the Ansible machine instead of target machine (in case target cannot access internet).
  * Allow Oracle JDK usage
- * RedHat like environments
- * Selenium install tasks for systemd enabled OS
  * Allow non-key based play of the book
  * Attach real VNC server to be able to see what selenium actually doing headless
+ * move all artifacts URL in a dict, which contains Alfresco version as keys
 
