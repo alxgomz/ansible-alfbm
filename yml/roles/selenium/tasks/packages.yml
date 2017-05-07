@@ -1,10 +1,19 @@
 ---
-- name: Software used with Selenium
+- name: Install dummy Xserver for the webdriver (Debian-like)
   apt:
     name: "{{ item }}"
   with_items:
     - xvfb
+    - x11vnc
   when: ansible_pkg_mgr == "apt"
+
+- name: Install dummy Xserver for the webdriver (RedHat-like)
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - xorg-x11-server-Xvfb
+    - tigervnc-server-minimal
+  when: ansible_pkg_mgr == "yum"
 
 - name: Firefox installation
   unarchive:

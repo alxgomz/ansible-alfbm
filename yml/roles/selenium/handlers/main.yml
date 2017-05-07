@@ -11,3 +11,12 @@
     state: restarted
     enabled: yes
 
+# sshd should of course always be started but tasks without
+# service name are only supported since 2.4
+- name: Reload Systemd
+  systemd:
+    daemon_reload: yes
+    name: sshd
+    state: started
+    enabled: yes
+

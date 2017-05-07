@@ -1,12 +1,12 @@
 artifact_repo: https://nexus.alfresco.com/nexus/service/local/repositories/snapshots/content
 
-bm_server_path: /org/alfresco/alfresco-benchmark-server/2.2.0-SNAPSHOT/alfresco-benchmark-server-2.2.0-20170403.100924-4.war
-bm_sample: /org/alfresco/alfresco-benchmark-sample/2.2.0-SNAPSHOT/alfresco-benchmark-sample-2.2.0-20170403.101041-4.war
-tests_signup_path: /org/alfresco/alfresco-benchmark-tests-ent-signup/2.5-SNAPSHOT/alfresco-benchmark-tests-ent-signup-2.5-20170306.103110-4.war
+bm_server_path: /org/alfresco/alfresco-benchmark-server/2.2.0-SNAPSHOT/alfresco-benchmark-server-2.2.0-20170425.171932-5.war
+bm_sample: /org/alfresco/alfresco-benchmark-sample/2.2.0-SNAPSHOT/alfresco-benchmark-sample-2.2.0-20170425.172045-5.war
+tests_signup_path: /org/alfresco/alfresco-benchmark-tests-ent-signup/2.5-SNAPSHOT/alfresco-benchmark-tests-ent-signup-2.5-20170425.173139-5.war
 tests_cmis_path: /org/alfresco/alfresco-benchmark-tests-cmis/1.7-SNAPSHOT/alfresco-benchmark-tests-cmis-1.7-20160818.133550-1.war
-tests_dataload_path: /org/alfresco/alfresco-benchmark-tests-dataload/2.8-SNAPSHOT/alfresco-benchmark-tests-dataload-2.8-20170306.105256-3.war
-tests_share_path: /org/alfresco/alfresco-benchmark-tests-share/5.2.0-SNAPSHOT/alfresco-benchmark-tests-share-5.2.0-20170424.155703-47.war
-tests_workflow_path: /org/alfresco/alfresco-benchmark-tests-workflow/1.3-SNAPSHOT/alfresco-benchmark-tests-workflow-1.3-20170403.102028-12.war
+tests_dataload_path: /org/alfresco/alfresco-benchmark-tests-dataload/2.8-SNAPSHOT/alfresco-benchmark-tests-dataload-2.8-20170425.173217-4.war
+tests_share_path: /org/alfresco/alfresco-benchmark-tests-share/5.2.0-SNAPSHOT/alfresco-benchmark-tests-share-5.2.0-20170425.173048-48.war
+tests_workflow_path: /org/alfresco/alfresco-benchmark-tests-workflow/1.3-SNAPSHOT/alfresco-benchmark-tests-workflow-1.3-20170425.173133-13.war
 tests_desktopsync_path: /org/alfresco/alfresco-benchmark-tests-desktop-sync/1.3-SNAPSHOT/alfresco-benchmark-tests-desktop-sync-1.3-20160615.142236-21.war
 
 # Use either Java 7 or 8
@@ -36,7 +36,7 @@ java_version: "{{ java_ver | default(8) }}"
 java_flavor: "{{ java_flav | default('openjdk') }}"
 tomcat_version: "{{ tomcat_ver | default(7) }}"
 tomcat_clean: "{{ tomcat_cln | default(False) }}"
-tomcat_port: "{{ tomcat_prt | default(8080) }}"
+#tomcat_port: "{{ tomcat_prt | default(8080) }}"
 
 selenium_version: "{{ selenium_ver | default('2.53.0') }}"
 selenium_release: "{{ selenium_version | regex_replace('\\.\\d+$','') }}"

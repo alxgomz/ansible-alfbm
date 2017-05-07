@@ -12,3 +12,6 @@
 - name: Stop Tomcat
   service: name="{{ tomcat_pkg[0] }}" state=stopped
 
+- name: Enable Tomcat on startup
+  service: name="{{ tomcat_pkg[0] }}" enabled=yes
+
