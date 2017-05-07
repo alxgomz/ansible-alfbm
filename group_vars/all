@@ -36,7 +36,7 @@ java_version: "{{ java_ver | default(8) }}"
 java_flavor: "{{ java_flav | default('openjdk') }}"
 tomcat_version: "{{ tomcat_ver | default(7) }}"
 tomcat_clean: "{{ tomcat_cln | default(False) }}"
-#tomcat_port: "{{ tomcat_prt | default(8080) }}"
+tomcat_port: "{{ tomcat_prt | default(8080) }}"
 
 selenium_version: "{{ selenium_ver | default('2.53.0') }}"
 selenium_release: "{{ selenium_version | regex_replace('\\.\\d+$','') }}"

@@ -1,7 +1,5 @@
 ---
 - hosts: load-driver
-  vars_files:
-    - ../config.yml
   roles:
     - { role: tomcat, when: "inventory_hostname not in groups['bm-server']" }
     - load-driver

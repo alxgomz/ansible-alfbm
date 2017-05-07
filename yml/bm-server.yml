@@ -1,7 +1,5 @@
 ---
 - hosts: bm-server
-  vars_files:
-    - ../config.yml
   roles:
     - tomcat
     - bm-server
