@@ -41,5 +41,4 @@ If some options need to be changed (e.g. java or tomcat version, etc...), edit t
  * Allow Oracle JDK usage
  * Allow non-key based play of the book
  * Attach real VNC server to be able to see what selenium actually doing headless
- * move all artifacts URL in a dict, which contains Alfresco version as keys
 

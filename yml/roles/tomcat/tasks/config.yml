@@ -32,15 +32,15 @@
     dest: "{{ tomcat_cfg_daemon }}"
     line: JAVA_HOME="{{ java_home }}"
     regexp: '^\s*JAVA_HOME\s*=.*$'
+    create: yes
   notify: Restart Tomcat
-  when: ansible_service_mgr == 'upstart' or ansible_service_mgr == 'init'
 
 - name: Set JAVA_OPTS
   lineinfile:
     dest: "{{ tomcat_cfg_daemon }}"
     line: JAVA_OPTS="$JAVA_OPTS -server -XX:MaxPermSize=512 -Xmx3G -Dmongo.config.host={{ groups['mongodb'][0] }}"
+    create: yes
   notify: Restart Tomcat
-  when: ansible_service_mgr == 'upstart' or ansible_service_mgr == 'init'
 
 - name: Remove all Tomcat webapps
   file: name="{{ catalina_home }}/webapps/{{ item }}" state=absent
@@ -48,13 +48,4 @@
     - alfresco-benchmark-server
     - alfresco-benchmark-server.war
   when: tomcat_clean == True
-
-- name: Get Alfresco benchmark server artifact
-  get_url:
-    url: "{{ artifact_repo }}/{{ bm_server_path }}"
-    dest: "{{ catalina_home }}/webapps/alfresco-benchmark-server.war"
-    owner: "{{ tomcat_user }}"
-    group: "{{ tomcat_group }}"
-    mode: 0644
-  notify: Restart Tomcat
 
