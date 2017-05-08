@@ -1,6 +1,6 @@
 java_pkg:
   - "openjdk-{{ java_version }}-jre-headless"
-  - "openjdk-{{ java_version }}-jdk-headless"
+  - "openjdk-{{ java_version }}-jdk"
 
 tomcat_pkg:
   - "tomcat{{ tomcat_version }}"

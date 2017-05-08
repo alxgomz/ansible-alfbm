@@ -1,6 +1,6 @@
 java_pkg:
   - openjdk-7-jre-headless
-  - openjdk-7-jdk-headless
+  - openjdk-7-jdk
 
 tomcat_pkg:
   - tomcat7
