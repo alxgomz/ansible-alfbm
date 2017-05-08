@@ -44,17 +44,8 @@
     src: unit-file_node
     dest: "{{ systemd_unit_prefix }}/systemd/system/selenium-node.service"
     mode: 0644
-  when: inventory_hostname in groups['selenium-hub'] and ansible_service_mgr == 'systemd'
+  when: inventory_hostname in groups['load-driver'] and ansible_service_mgr == 'systemd'
   notify:
     - Reload Systemd
     - Restart Selenium node
-
-- name: Enable Selenium service
-  service:
-    name: "{{ item }}"
-    enabled: yes
-  with_items:
-    - selenium-hub
-    - selenium-node
-  when: ( inventory_hostname in groups['selenium-hub'] and item  == 'selenium-hub' ) or ( inventory_hostname in groups['load-driver'] and item == 'selenium-node' )
 

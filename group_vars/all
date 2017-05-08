@@ -24,7 +24,6 @@ tests_desktopsync_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmar
 
 # Should we remove existing war files
 #tomcat_cln: False
-tomcat_cln: True
 
 # Selenium version MUST be X.Y.Z
 #selenium_ver: 3.3.1
