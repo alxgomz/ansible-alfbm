@@ -8,7 +8,7 @@
 
 - name: Get Alfresco benchmark server artifact
   get_url:
-    url: "{{ artifact_repo }}/{{ bm_server_path }}"
+    url: "{{ artifact_repo }}/{{ bm_server_path.repo }}/content/{{ bm_server_path.path }}"
     dest: "{{ catalina_home }}/webapps/alfresco-benchmark-server.war"
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"

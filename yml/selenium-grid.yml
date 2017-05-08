@@ -2,8 +2,6 @@
 - hosts:
     - selenium-hub
     - load-driver
-  vars_files:
-    - ../config.yml
   roles:
     - selenium
 

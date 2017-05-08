@@ -1,7 +1,5 @@
 ---
 - hosts: mongodb
-  vars_files:
-    - ../config.yml
   roles:
     - mongodb
 

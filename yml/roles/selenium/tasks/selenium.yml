@@ -18,7 +18,7 @@
     src: sysvinit-hub
     dest: /etc/init.d/selenium-hub
     mode: 0755
-  when: inventory_hostname in groups['selenium-hub']
+  when: inventory_hostname in groups['selenium-hub'] and ( ansible_service_mgr == 'upstart' or ansible_service_mgr == 'init' )
   notify: Restart Selenium hub
 
 - name: Add Selenium Node init script
@@ -26,8 +26,28 @@
     src: sysvinit-node
     dest: /etc/init.d/selenium-node
     mode: 0755
-  when: inventory_hostname in groups['load-driver']
+  when: inventory_hostname in groups['load-driver'] and ( ansible_service_mgr == 'upstart' or ansible_service_mgr == 'init' )
   notify: Restart Selenium node
+
+- name: Add Selenium Hub unit file
+  template:
+    src: unit-file_hub
+    dest: "{{ systemd_unit_prefix }}/systemd/system/selenium-hub.service"
+    mode: 0644
+  when: inventory_hostname in groups['selenium-hub'] and ansible_service_mgr == 'systemd'
+  notify:
+    - Reload Systemd
+    - Restart Selenium hub
+
+- name: Add Selenium Node unit file
+  template:
+    src: unit-file_node
+    dest: "{{ systemd_unit_prefix }}/systemd/system/selenium-node.service"
+    mode: 0644
+  when: inventory_hostname in groups['selenium-hub'] and ansible_service_mgr == 'systemd'
+  notify:
+    - Reload Systemd
+    - Restart Selenium node
 
 - name: Enable Selenium service
   service:

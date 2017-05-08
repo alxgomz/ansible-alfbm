@@ -1,14 +1,30 @@
 ---
-- name: Configure Tomcat server
+- name: Reset Tomcat connectors
   xml:
     file: "{{ tomcat_cfg_server }}"
-    xpath: /Server/Service/Connector/@port
+    xpath: /Server/Service/Connector
+    ensure: absent
 
-- name: Set Tomcat port
+- name: add HTTP Connector
+  xml:
+    file: "{{ tomcat_cfg_server }}"
+    xpath: "{{ item }}"
+  with_items:
+    - /Server/Service/Connector/@port
+    - /Server/Service/Connector/@protocol
+    - /Server/Service/Connector/@maxPostSize
+    - /Server/Service/Connector/@scheme
+
+- name: Set Tomcat port (ansible-xml cannot handle this at the moment)
   replace:
     dest: "{{ tomcat_cfg_server }}"
-    regexp: ' port="" '
-    replace: ' port="{{ tomcat_port }}" '
+    regexp: ' {{ item.attribute }}=""'
+    replace: ' {{ item.attribute }}="{{ item.value }}" '
+  with_items:
+    - { attribute: port, value: "{{ tomcat_port }}" }
+    - { attribute: protocol, value: "HTTP/1.1" }
+    - { attribute: scheme, value: "http" }
+    - { attribute: maxPostSize, value: "52428800" }
   notify: Restart Tomcat
 
 - name: Set JAVA_HOME
@@ -16,12 +32,14 @@
     dest: "{{ tomcat_cfg_daemon }}"
     line: JAVA_HOME="{{ java_home }}"
     regexp: '^\s*JAVA_HOME\s*=.*$'
+    create: yes
   notify: Restart Tomcat
 
 - name: Set JAVA_OPTS
   lineinfile:
     dest: "{{ tomcat_cfg_daemon }}"
-    line: JAVA_OPTS="$JAVA_OPTS -server -XX:MaxPermSize=512 -Xmx3G -Dmongo.config.host="{{ groups['mongodb'][0] }}""
+    line: JAVA_OPTS="$JAVA_OPTS -server -XX:MaxPermSize=512 -Xmx3G -Dmongo.config.host={{ groups['mongodb'][0] }}"
+    create: yes
   notify: Restart Tomcat
 
 - name: Remove all Tomcat webapps
@@ -30,13 +48,4 @@
     - alfresco-benchmark-server
     - alfresco-benchmark-server.war
   when: tomcat_clean == True
-
-- name: Get Alfresco benchmark server artifact
-  get_url:
-    url: "{{ artifact_repo }}/{{ bm_server_path }}"
-    dest: "{{ catalina_home }}/webapps/alfresco-benchmark-server.war"
-    owner: "{{ tomcat_user }}"
-    group: "{{ tomcat_group }}"
-    mode: 0644
-  notify: Restart Tomcat
 

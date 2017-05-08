@@ -8,16 +8,16 @@
 - name: Load distribution vars
   include_vars: "{{ item }}"
   with_first_found:
-      - "../vars/{{ ansible_distribution|lower }}.yml"
+      - "{{ ansible_distribution|lower }}.yml"
   ignore_errors: true
 
 - name: Load major version vars
   include_vars: "{{ item }}"
   with_first_found:
-      - "../vars/{{ ansible_distribution|lower }}_{{ ansible_distribution_major_version|lower }}.yml"
+      - "{{ ansible_distribution|lower }}_{{ ansible_distribution_major_version|lower }}.yml"
   ignore_errors: true
 
 - name: WARNING
   debug: msg="your Linux distribution is quite outdated! Software version specified in your configuration may not be the one deployed"
-  when: warn_old
+  when: warn_old is defined
 

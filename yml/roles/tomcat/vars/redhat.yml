@@ -1,0 +1,17 @@
+java_pkg:
+  - "java-1.{{ java_version }}.0-openjdk-headless"
+  - "java-1.{{ java_version }}.0-openjdk-devel"
+
+java_home: "/usr/lib/jvm/jre"
+
+tomcat_pkg:
+  - tomcat
+
+servlet_pkg: "{{ java_pkg }} + {{ tomcat_pkg }}"
+
+tomcat_cfg_server: /etc/tomcat/server.xml
+tomcat_cfg_daemon: "{% if  ansible_service_mgr == 'systemd' %}/etc/tomcat/conf.d/alfresco-benchmark.conf{% else %}/etc/sysconfig/tomcat{% endif %}"
+tomcat_user: tomcat
+tomcat_group: tomcat
+catalina_home: /usr/share/tomcat
+

@@ -18,16 +18,16 @@
 
 - name: Get Alfresco benchmark tests artifacts
   get_url:
-    url: "{{ artifact_repo }}/{{ item.artifact }}"
+    url: "{{ artifact_repo }}/{{ item.repo }}/content/{{ item.path }}"
     dest: "{{ catalina_home }}/webapps/{{ item.warfile }}.war"
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
     mode: 0644
   with_items:
-    - { artifact: "{{ tests_signup_path }}", warfile: 'alfresco-benchmark-tests-signup' }
-    - { artifact: "{{ tests_cmis_path }}", warfile: 'alfresco-benchmark-tests-cmis' }
-    - { artifact: "{{ tests_dataload_path }}", warfile: 'alfresco-benchmark-tests-dataload' }
-    - { artifact: "{{ tests_share_path }}", warfile: 'alfresco-benchmark-tests-share' }
-    - { artifact: "{{ tests_workflow_path }}", warfile: 'alfresco-benchmark-tests-workflow' }
-    - { artifact: "{{ tests_desktopsync_path }}", warfile: 'alfresco-benchmark-tests-desktopsync' }
+    - { repo: "{{ tests_signup_path.repo }}", path: "{{tests_signup_path.path }}", warfile: 'alfresco-benchmark-tests-signup' }
+    - { repo: "{{ tests_cmis_path.repo }}", path: "{{ tests_cmis_path.path }}", warfile: 'alfresco-benchmark-tests-cmis' }
+    - { repo: "{{ tests_dataload_path.repo }}", path: "{{ tests_dataload_path.path }}", warfile: 'alfresco-benchmark-tests-dataload' }
+    - { repo: "{{ tests_share_path.repo }}", path: "{{ tests_share_path.path }}", warfile: 'alfresco-benchmark-tests-share' }
+    - { repo: "{{ tests_workflow_path.repo }}", path: "{{ tests_workflow_path.path }}", warfile: 'alfresco-benchmark-tests-workflow' }
+    - { repo: "{{ tests_desktopsync_path.repo }}", path: "{{ tests_desktopsync_path.path }}", warfile: 'alfresco-benchmark-tests-desktopsync' }
 

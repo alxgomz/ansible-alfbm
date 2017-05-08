@@ -5,12 +5,26 @@
     id: 0C49F3730359A14518585931BC711F9BA15703C6
   when: ansible_pkg_mgr == 'apt'
 
-- name: Set up MongoDB reposirtory
+- name: Set up MongoDB reposirtory (RedHat-like)
+  yum_repository:
+    name: mongodb-org
+    description: MongoDB Community repository
+    baseurl: "{{ mongo_repo_url }}"
+    gpgcheck: yes
+    gpgkey: "{{ mongo_repo_key }}"
+  when: ansible_pkg_mgr == 'yum'
+
+- name: Set up MongoDB reposirtory (Debian-like)
   apt_repository:
     repo: "{{ mongo_repo_url }}"
   when: ansible_pkg_mgr == 'apt'
 
-- name: Install MongoDB
+- name: Install MongoDB (RedHat-like)
+  yum:
+    name: mongodb-org
+  when: ansible_pkg_mgr == 'yum'
+
+- name: Install MongoDB (Debian-like)
   apt:
     name: mongodb-org
   when: ansible_pkg_mgr == 'apt'
