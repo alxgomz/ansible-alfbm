@@ -12,6 +12,7 @@
     baseurl: "{{ mongo_repo_url }}"
     gpgcheck: yes
     gpgkey: "{{ mongo_repo_key }}"
+  when: ansible_pkg_mgr == 'yum'
 
 - name: Set up MongoDB reposirtory (Debian-like)
   apt_repository:
