@@ -4,5 +4,5 @@
     name: firewalld
     state: stopped
     enabled: no
-  when: "{{ ansible_os_family|lower }}" == 'redhat'
+  when: {{ ansible_os_family|lower }} == 'redhat'
 
