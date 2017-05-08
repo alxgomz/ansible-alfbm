@@ -1,13 +1,13 @@
 ---
 artifact_repo: https://nexus.alfresco.com/nexus/service/local/repositories
 
-bm_server_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-server/2.2.0/alfresco-benchmark-server-2.2.0.war }
-bm_sample: { repo: releases, path: /org/alfresco/alfresco-benchmark-sample/2.2.0/alfresco-benchmark-sample-2.2.0.war }
-tests_signup_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-ent-signup/2.4/alfresco-benchmark-tests-ent-signup-2.4.war }
-tests_cmis_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-cmis/1.6/alfresco-benchmark-tests-cmis-1.6.war }
-tests_dataload_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-dataload/2.7/alfresco-benchmark-tests-dataload-2.7.war }
+bm_server_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-server/2.2.1-SNAPSHOT/alfresco-benchmark-server-2.2.1-20170505.101349-1.war }
+bm_sample: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-sample/2.2.1-SNAPSHOT/alfresco-benchmark-sample-2.2.1-20170505.101506-1.war }
+tests_signup_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-ent-signup/2.5-SNAPSHOT/alfresco-benchmark-tests-ent-signup-2.5-20170505.102429-8.war }
+tests_cmis_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-cmis/1.7-SNAPSHOT/alfresco-benchmark-tests-cmis-1.7-20160818.133550-1.war }
+tests_dataload_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-dataload/2.8-SNAPSHOT/alfresco-benchmark-tests-dataload-2.8-20170505.102513-7.war }
 tests_share_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-share/5.2.0-SNAPSHOT/alfresco-benchmark-tests-share-5.2.0-20170505.102335-51.war }
-tests_workflow_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-workflow/1.2/alfresco-benchmark-tests-workflow-1.2.war }
+tests_workflow_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-workflow/1.3-SNAPSHOT/alfresco-benchmark-tests-workflow-1.3-20170505.102423-16.war }
 tests_desktopsync_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-desktop-sync/1.3-SNAPSHOT/alfresco-benchmark-tests-desktop-sync-1.3-20160615.142236-21.war }
 
 # Use either Java 7 or 8
@@ -24,6 +24,7 @@ tests_desktopsync_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmar
 
 # Should we remove existing war files
 #tomcat_cln: False
+tomcat_cln: True
 
 # Selenium version MUST be X.Y.Z
 #selenium_ver: 3.3.1
@@ -33,7 +34,7 @@ tests_desktopsync_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmar
 # DO NOT EDIT FURTHER.
 # Thereafter we only set defaults
 
-java_version: "{{ java_ver | default(7) }}"
+java_version: "{{ java_ver | default(8) }}"
 java_flavor: "{{ java_flav | default('openjdk') }}"
 tomcat_version: "{{ tomcat_ver | default(7) }}"
 tomcat_clean: "{{ tomcat_cln | default(False) }}"
