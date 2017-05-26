@@ -5,7 +5,7 @@ After=syslog.target network.target
 [Service]
 User=selenium
 
-ExecStart=/usr/bin/xvfb-run -s "screen 0 {{ xserver_res }}" -a /usr/bin/java -jar /usr/local/share/selenium/selenium-server-standalone-{{ selenium_version }}.jar -role node -hub http://{{ groups['selenium-hub'][0] }}:{{ selenium_hub_portnumber }}/grid/register -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy
+ExecStart=/usr/bin/xvfb-run -s "screen 0 {{ xserver_res }}" -a /usr/bin/java -Djava.security.egd=file:/dev/urandom -jar /usr/local/share/selenium/selenium-server-standalone-{{ selenium_version }}.jar -role node -hub http://{{ groups['selenium-hub'][0] }}:{{ selenium_hub_portnumber }}/grid/register -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy -log /usr/local/share/selenium/selenium-node.log
 
 [Install]
 WantedBy=default.target

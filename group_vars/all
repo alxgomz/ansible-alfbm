@@ -39,7 +39,7 @@ tomcat_version: "{{ tomcat_ver | default(7) }}"
 tomcat_clean: "{{ tomcat_cln | default(False) }}"
 tomcat_port: "{{ tomcat_prt | default(8080) }}"
 
-selenium_version: "{{ selenium_ver | default('2.53.0') }}"
+selenium_version: "{{ selenium_ver | default('2.53.1') }}"
 selenium_release: "{{ selenium_version | regex_replace('\\.\\d+$','') }}"
 selenium_url: "http://selenium-release.storage.googleapis.com/{{ selenium_release }}/selenium-server-standalone-{{ selenium_version }}.jar"
 
