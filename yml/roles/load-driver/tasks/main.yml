@@ -27,6 +27,7 @@
     - { repo: "{{ tests_signup_path.repo }}", path: "{{tests_signup_path.path }}", warfile: 'alfresco-benchmark-tests-signup' }
     - { repo: "{{ tests_cmis_path.repo }}", path: "{{ tests_cmis_path.path }}", warfile: 'alfresco-benchmark-tests-cmis' }
     - { repo: "{{ tests_dataload_path.repo }}", path: "{{ tests_dataload_path.path }}", warfile: 'alfresco-benchmark-tests-dataload' }
+    - { repo: "{{ tests_publicapi_path.repo }}", path: "{{ tests_publicapi_path.path }}", warfile: 'alfresco-benchmark-tests-publicapi' }
     - { repo: "{{ tests_share_path.repo }}", path: "{{ tests_share_path.path }}", warfile: 'alfresco-benchmark-tests-share' }
     - { repo: "{{ tests_workflow_path.repo }}", path: "{{ tests_workflow_path.path }}", warfile: 'alfresco-benchmark-tests-workflow' }
     - { repo: "{{ tests_desktopsync_path.repo }}", path: "{{ tests_desktopsync_path.path }}", warfile: 'alfresco-benchmark-tests-desktopsync' }

@@ -7,7 +7,8 @@ tests_signup_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-test
 tests_cmis_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-cmis/1.7/alfresco-benchmark-tests-cmis-1.7.war }
 tests_dataload_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-dataload/2.7/alfresco-benchmark-tests-dataload-2.7.war }
 tests_share_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-share/5.2.0-SNAPSHOT/alfresco-benchmark-tests-share-5.2.0-20170825.134033-53.war }
-tests_workflow_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-workflow/1.3-SNAPSHOT/alfresco-benchmark-tests-workflow-1.3-20170825.134120-18.war }
+tests_workflow_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-workflow/1.2/alfresco-benchmark-tests-workflow-1.2.war }
+tests_publicapi_path: { repo: releases, path: /org/alfresco/alfresco-benchmark-tests-publicapi/2.2/alfresco-benchmark-tests-publicapi-2.2.war }
 tests_desktopsync_path: { repo: snapshots, path: /org/alfresco/alfresco-benchmark-tests-desktop-sync/1.3-SNAPSHOT/alfresco-benchmark-tests-desktop-sync-1.3-20160615.142236-21.war }
 
 # Use either Java 7 or 8
