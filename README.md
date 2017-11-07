@@ -35,6 +35,16 @@ $ ansible-playbook -i inventory alfbm.yml -b -K
 ```
 If some options need to be changed (e.g. java or tomcat version, etc...), edit the group_vars/all file or the host_vars/<HOSTNAME> if the variable is host specific.
 
+If you need to check what selenium is doing with the browser, you need to:
+
+ - Spawn a VNC server on the load driver where you need to see what's hapenning:
+
+```
+$ sudo -u selenium Xvnc :0 -SecurityTypes=None 
+```
+
+You should now be able to attach to the VNC server using any vnc client on display :0 (or by default port 5900).
+
 ## TODO
 
  * Make it possible to download software from the Ansible machine instead of target machine (in case target cannot access internet).
