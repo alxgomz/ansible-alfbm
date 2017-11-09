@@ -1,16 +1,4 @@
 ---
-- name: Restart Selenium hub
-  service:
-    name: selenium-hub
-    state: restarted
-    enabled: yes
-
-- name: Restart Selenium node
-  service:
-    name: selenium-node
-    state: restarted
-    enabled: yes
-
 # sshd should of course always be started but tasks without
 # service name are only supported since 2.4
 - name: Reload Systemd
@@ -29,3 +17,14 @@
     - selenium-node
   when: ( inventory_hostname in groups['selenium-hub'] and item  == 'selenium-hub' ) or ( inventory_hostname in groups['load-driver'] and item == 'selenium-node' )
 
+- name: Restart Selenium hub
+  service:
+    name: selenium-hub
+    state: restarted
+    enabled: yes
+
+- name: Restart Selenium node
+  service:
+    name: selenium-node
+    state: restarted
+    enabled: yes

@@ -28,10 +28,6 @@
     src: https://ftp.mozilla.org/pub/firefox/releases/44.0/linux-x86_64/en-GB/firefox-44.0.tar.bz2
     dest: /opt/
     remote_src: yes
-    creates: /opt/firefox/firefox
-  when: inventory_hostname in groups['load-driver']
-
-- name: Add Firefox binary in PATH
-  file: state=link dest=/usr/bin/firefox src=/opt/firefox/firefox
+    creates: "{{ ff_install_path }}/firefox"
   when: inventory_hostname in groups['load-driver']
 

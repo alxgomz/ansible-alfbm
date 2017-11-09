@@ -14,7 +14,7 @@ XVFB_RUN=/usr/bin/xvfb-run
 
 MAX_MEMORY="-Xmx1G"
 
-DAEMON_OPTS="$MAX_MEMORY -Djava.security.egd=file:/dev/urandom -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy"
+DAEMON_OPTS="$MAX_MEMORY -Djava.security.egd=file:/dev/urandom -jar $JAR_FILE -log $LOG_FILE -role node -hub http://${SELENIUM_HUB}:${SELENIUM_PORT}/grid/register -Dwebdriver.firefox.bin={{ ff_install_path }}/firefox -browser browserName=firefox,platform=ANY,maxInstances={{ ansible_processor_cores * 2 }} -port 5559 -avoidProxy"
 XSERVER_ARGS="-screen 0 {{ xserver_res }}"
 
 NAME=selenium-node
