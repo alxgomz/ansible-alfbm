@@ -42,7 +42,7 @@ If you need to check what selenium is doing with the browser, you need to:
  - Spawn a VNC server on the load driver where you need to see what's hapenning:
 
 ```
-$ Xvnc :0 -SecurityTypes=None 
+$ x11vnc -display :99 -rfbport 5900
 ```
 
  - You should now be able to attach to the VNC server using any vnc client on display :0 (or by default port 5900).

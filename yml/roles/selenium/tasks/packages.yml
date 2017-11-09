@@ -12,10 +12,16 @@
   yum:
     name: "{{ item }}"
   with_items:
+    - epel-release
     - xorg-x11-server-Xvfb
-    - tigervnc-server-minimal
     - gtk2
-  when: ansible_pkg_mgr == "yum"
+  when: ansible_pkg_mgr == "yum" and inventory_hostname in groups['load-driver']
+
+- name: Install extra convenient packages
+  yum:
+    name: x11vnc
+    disable_gpg_check: yes
+  when: ansible_pkg_mgr == "yum" and inventory_hostname in groups['load-driver']
 
 - name: Firefox installation
   unarchive:
